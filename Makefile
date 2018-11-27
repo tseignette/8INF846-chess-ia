@@ -6,5 +6,8 @@ source:
 run:
 	java -cp bin Main
 
+jar:
+	jar cf chessDestroyer.jar bin/*.class
+
 clean:
 	rm -R bin/*.class
