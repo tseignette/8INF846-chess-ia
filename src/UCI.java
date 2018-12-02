@@ -36,9 +36,6 @@ public class UCI {
   private static void inputUCI() {
     System.out.println("id name " + ENGINENAME);
     System.out.println("id author " + AUTHOR);
-
-    // TODO: board init
-
     System.out.println("uciok");
   }
 
@@ -57,6 +54,7 @@ public class UCI {
   }
 
   private static void newPosition(String input) {
+    // HINT: white if there is the string "startpos", black otherwise
     // TODO: update board
   }
 
