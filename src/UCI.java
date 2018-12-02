@@ -44,8 +44,6 @@ public class UCI {
   }
 
   private static void isReady() {
-    // TODO: board init
-
     System.out.println("readyok");
   }
 
