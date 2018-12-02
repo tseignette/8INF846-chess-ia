@@ -1,13 +1,13 @@
-all: source run
+all: source jar
 
 source:
 	javac -d bin src/*.java
 
-run:
-	java -cp bin Main
+jar: source
+	jar cef Main chessDestroyer.jar -C bin .
 
-jar:
-	jar cf chessDestroyer.jar bin/*.class
+run:
+	java -jar chessDestroyer.jar
 
 clean:
-	rm -R bin/*.class
+	rm -R bin/*.class chessDestroyer.jar
