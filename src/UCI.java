@@ -52,8 +52,19 @@ public class UCI {
   }
 
   private static void newPosition(String input) {
-    // HINT: white if there is the string "startpos", black otherwise
-    // TODO: update board
+    input = input.substring(9).concat(" ");
+
+    if (input.contains("startpos ")) {
+      input = input.substring(9);
+      // TODO: set player to white
+    }
+
+    if (input.contains("moves")) {
+      input = input.substring(input.indexOf("moves") + 6);
+      Move move = Move.UCIToMove(input);
+
+      // TODO: update board
+    }
   }
 
   private static void go() {
