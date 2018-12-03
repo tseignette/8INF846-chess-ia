@@ -50,11 +50,9 @@ public class Chessboard {
   // PUBLIC METHODS
   // ===============================================================================================
   public void makeMove(Move move) {
-    this.display();
     Piece tmp = this.board[move.getRowFrom()][move.getColumnFrom()];
     this.board[move.getRowFrom()][move.getColumnFrom()] = this.board[move.getRowTo()][move.getColumnTo()];
     this.board[move.getRowTo()][move.getColumnTo()] = tmp;
-    this.display();
   }
 
 }
