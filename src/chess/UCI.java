@@ -7,10 +7,68 @@ import java.util.concurrent.*;
 
 public class UCI {
 
+  // ===============================================================================================
+  // CONSTANTS
+  // ===============================================================================================
   public static final String ENGINENAME = "Chess destroyer";
   public static final String AUTHOR = "BERTUGLIA Camille, LEFEVRE Arnaud and SEIGNETTE Thomas";
 
-  public static void listen() {
+
+  // ===============================================================================================
+  // ATTRIBUTES
+  // ===============================================================================================
+  private Chessboard chessboard;
+
+
+  // ===============================================================================================
+  // PRIVATE METHODS
+  // ===============================================================================================
+  private void inputUCI() {
+    System.out.println("id name " + ENGINENAME);
+    System.out.println("id author " + AUTHOR);
+    System.out.println("uciok");
+  }
+
+  private void setOptions(String input) {
+    // Called when Arena sends options
+  }
+
+  private void isReady() {
+    System.out.println("readyok");
+  }
+
+  private void newGame() {
+    this.chessboard = new Chessboard();
+  }
+
+  private void newPosition(String input) {
+    input = input.substring(9).concat(" ");
+
+    if (input.contains("startpos ")) {
+      input = input.substring(9);
+      // TODO: set player to white
+    }
+
+    if (input.contains("moves")) {
+      input = input.substring(input.indexOf("moves") + 6);
+      Move move = Move.UCIToMove(input);
+      this.chessboard.makeMove(move);
+    }
+  }
+
+  private void go() {
+    // TODO: choose best move
+  }
+
+  private void quit() {
+    // Called when game is over
+  }
+
+
+  // ===============================================================================================
+  // PUBLIC METHODS
+  // ===============================================================================================
+  public void listen() {
     Scanner input = new Scanner(System.in);
     while (true) {
       String command = input.nextLine();
@@ -33,48 +91,6 @@ public class UCI {
       }
     }
     input.close();
-  }
-
-  private static void inputUCI() {
-    System.out.println("id name " + ENGINENAME);
-    System.out.println("id author " + AUTHOR);
-    System.out.println("uciok");
-  }
-
-  private static void setOptions(String input) {
-    // Called when Arena sends options
-  }
-
-  private static void isReady() {
-    System.out.println("readyok");
-  }
-
-  private static void newGame() {
-    // TODO: board init
-  }
-
-  private static void newPosition(String input) {
-    input = input.substring(9).concat(" ");
-
-    if (input.contains("startpos ")) {
-      input = input.substring(9);
-      // TODO: set player to white
-    }
-
-    if (input.contains("moves")) {
-      input = input.substring(input.indexOf("moves") + 6);
-      Move move = Move.UCIToMove(input);
-
-      // TODO: update board
-    }
-  }
-
-  private static void go() {
-    // TODO: choose best move
-  }
-
-  private static void quit() {
-    // Called when game is over
   }
 
 }

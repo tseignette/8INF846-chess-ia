@@ -3,8 +3,8 @@ package chess;
 public class Main {
 
   public static void main(String[] args) {
-    System.out.println("It works!");
-    UCI.listen();
+    UCI listener = new UCI();
+    listener.listen();
   }
 
 }
