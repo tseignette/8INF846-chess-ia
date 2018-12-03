@@ -1,7 +1,7 @@
 all: source jar
 
 source:
-	javac -d bin src/chess/*.java src/chess/piece/*.java
+	javac -d bin src/chess/chess/*.java src/chess/chess/piece/*.java
 
 jar: source
 	jar cef chess.Main chessDestroyer.jar -C bin chess .
