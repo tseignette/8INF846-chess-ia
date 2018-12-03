@@ -2,6 +2,8 @@
 AI class at UQAC - Implementation of a chess AI
 
 ## Todo
+* Miscellaneous:
+  * Piece capture and cemetery
 * Special moves:
   * Castling
   * En passant
