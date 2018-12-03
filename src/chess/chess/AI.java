@@ -1,6 +1,5 @@
 package chess;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import chess.piece.Piece;
@@ -39,10 +38,10 @@ public class AI {
   // Minimax with alpha-beta pruning
   public Move chooseBestMove() {
     Piece[] myPieces = this.chessboard.getMyPieces(this.color);
-    ArrayList<Move> possibleMoves = new ArrayList<>();
+    MoveArrayList possibleMoves = new MoveArrayList();
     
     for (int i = 0; i < myPieces.length; i++) {
-      possibleMoves.addAll(myPieces[i].getPossibleMoves(this.chessboard));
+      myPieces[i].getPossibleMoves(this.chessboard, possibleMoves);
     }
 
     int random = new Random().nextInt(possibleMoves.size());

@@ -1,14 +1,13 @@
 package chess.piece;
 
-import java.util.ArrayList;
-
 import chess.Chessboard;
 import chess.Move;
+import chess.MoveArrayList;
 
 public class Rook extends Piece {
 
-  protected ArrayList<Move> computePossibleMoves(Chessboard board) {
-    return new ArrayList<Move>();
+  protected void computePossibleMoves(Chessboard board, MoveArrayList possibleMoves) {
+    
   }
 
 }

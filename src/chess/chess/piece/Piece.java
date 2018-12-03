@@ -1,10 +1,8 @@
 package chess.piece;
 
-import java.util.ArrayList;
-
 import chess.AI;
 import chess.Chessboard;
-import chess.Move;
+import chess.MoveArrayList;
 
 public abstract class Piece {
 
@@ -18,7 +16,7 @@ public abstract class Piece {
   // ===============================================================================================
   // PROTECTED METHODS
   // ===============================================================================================
-  protected abstract ArrayList<Move> computePossibleMoves(Chessboard board);
+  protected abstract void computePossibleMoves(Chessboard board, MoveArrayList possibleMoves);
 
 
   // ===============================================================================================
@@ -49,12 +47,11 @@ public abstract class Piece {
     return this.column;
   }
 
-  // TODO: create new class extending ArrayList and check every move added
-  public ArrayList<Move> getPossibleMoves(Chessboard board) {
+  public void getPossibleMoves(Chessboard board, MoveArrayList possibleMoves) {
     if (this.row == Chessboard.CEMETERY && this.column == Chessboard.CEMETERY)
-      return new ArrayList<Move>();
+      return;
 
-    return this.computePossibleMoves(board);
+    this.computePossibleMoves(board, possibleMoves);
   }
 
 }

@@ -1,16 +1,13 @@
 package chess.piece;
 
-import java.util.ArrayList;
-
 import chess.AI;
 import chess.Chessboard;
 import chess.Move;
+import chess.MoveArrayList;
 
 public class Pawn extends Piece {
 
-  protected ArrayList<Move> computePossibleMoves(Chessboard board) {
-    ArrayList<Move> possibleMoves = new ArrayList<Move>();
-
+  protected void computePossibleMoves(Chessboard board, MoveArrayList possibleMoves) {
     int row = this.getRow();
     int column = this.getColumn();
 
@@ -52,8 +49,6 @@ public class Pawn extends Piece {
       rightFrontPiece.getOwner() != this.getOwner()
     )
       possibleMoves.add(new Move(row, column, frontRow, column + 1));
-
-    return possibleMoves;
   }
 
 }
