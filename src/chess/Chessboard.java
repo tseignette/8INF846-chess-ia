@@ -1,15 +1,24 @@
 package chess;
 
+import java.util.ArrayList;
+
 import chess.piece.*;
 
 public class Chessboard {
 
   // ===============================================================================================
+  // CONSTANTS
+  // ===============================================================================================
+  public final static int CEMETERY = -1;
+
+
+  // ===============================================================================================
   // ATTRIBUTES
   // ===============================================================================================
   private Piece[][] board; // board[i][j] where i is the row and j the column
-  private Piece[] whitePieces;
-  private Piece[] blackPieces;
+  private ArrayList<Piece> cemetery;
+  private Piece[] whitePieces; // allows faster access to white pieces
+  private Piece[] blackPieces; // allows faster access to black pieces
 
 
   // ===============================================================================================
@@ -60,10 +69,24 @@ public class Chessboard {
   // PUBLIC METHODS
   // ===============================================================================================
   public void makeMove(Move move) {
-    Piece tmp = this.board[move.getRowFrom()][move.getColumnFrom()];
-    tmp.setPosition(move.getRowTo(), move.getColumnTo());
-    this.board[move.getRowFrom()][move.getColumnFrom()] = this.board[move.getRowTo()][move.getColumnTo()];
-    this.board[move.getRowTo()][move.getColumnTo()] = tmp;
+    int rowFrom = move.getRowFrom();
+    int columnFrom = move.getColumnFrom();
+    int rowTo = move.getRowTo();
+    int columnTo = move.getColumnTo();
+
+    Piece pieceFrom = this.board[rowFrom][columnFrom];
+    Piece pieceTo = this.board[rowTo][columnTo];
+
+    // If there is a piece on the destination, put it in the cemetery
+    if(pieceTo != null) {
+      this.cemetery.add(pieceTo);
+      pieceTo.setPosition(CEMETERY, CEMETERY);
+    }
+
+    // Set new piece position
+    pieceFrom.setPosition(rowTo, columnTo);
+    this.board[rowTo][columnTo] = pieceFrom;
+    this.board[rowFrom][columnFrom] = null;
   }
 
   public Piece[] getMyPieces(int playerColor) {

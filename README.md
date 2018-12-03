@@ -3,7 +3,7 @@ AI class at UQAC - Implementation of a chess AI
 
 ## Todo
 * Miscellaneous:
-  * Piece capture and cemetery
+  * 1s time limit
 * Special moves:
   * Castling
   * En passant
