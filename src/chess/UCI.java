@@ -18,6 +18,7 @@ public class UCI {
   // ATTRIBUTES
   // ===============================================================================================
   private Chessboard chessboard;
+  private AI ai;
 
 
   // ===============================================================================================
@@ -39,6 +40,7 @@ public class UCI {
 
   private void newGame() {
     this.chessboard = new Chessboard();
+    this.ai = new AI(this.chessboard);
   }
 
   private void newPosition(String input) {
@@ -46,7 +48,7 @@ public class UCI {
 
     if (input.contains("startpos ")) {
       input = input.substring(9);
-      // TODO: set player to white
+      ai.setColor(AI.WHITE);
     }
 
     if (input.contains("moves")) {
