@@ -53,7 +53,12 @@ public class UCI {
 
     if (input.contains("moves")) {
       input = input.substring(input.indexOf("moves") + 6);
-      Move move = Move.UCIToMove(input);
+      String lastInput = input;
+      while (input.length() > 0) {
+        lastInput = input;
+        input = input.substring(input.indexOf(' ')+1);
+      }
+      Move move = Move.UCIToMove(lastInput);
       this.chessboard.makeMove(move);
     }
   }
