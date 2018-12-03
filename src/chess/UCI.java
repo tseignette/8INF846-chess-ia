@@ -48,7 +48,7 @@ public class UCI {
 
     if (input.contains("startpos ")) {
       input = input.substring(9);
-      ai.setColor(AI.WHITE);
+      ai.setColor(AI.BLACK);
     }
 
     if (input.contains("moves")) {
@@ -59,7 +59,8 @@ public class UCI {
   }
 
   private void go() {
-    // TODO: choose best move
+    Move bestMove = ai.chooseBestMove();
+    System.out.println("bestmove " + Move.moveToUCI(bestMove));
   }
 
   private void quit() {

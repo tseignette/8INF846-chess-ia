@@ -8,11 +8,12 @@ public class AI {
   public final static int BLACK = 1;
   public final static int WHITE = 0;
 
+
   // ===============================================================================================
   // ATTRIBUTES
   // ===============================================================================================
   private Chessboard chessboard;
-  private int color = BLACK;
+  private int color = WHITE;
 
 
   // ===============================================================================================
