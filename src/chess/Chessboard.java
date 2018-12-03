@@ -31,17 +31,17 @@ public class Chessboard {
     }
 
     // White pieces
-    this.board[7][0] = new Rook().setOwner(Piece.WHITE);
-    this.board[7][1] = new Knight().setOwner(Piece.WHITE);
-    this.board[7][2] = new Bishop().setOwner(Piece.WHITE);
-    this.board[7][3] = new Queen().setOwner(Piece.WHITE);
-    this.board[7][4] = new King().setOwner(Piece.WHITE);
-    this.board[7][5] = new Bishop().setOwner(Piece.WHITE);
-    this.board[7][6] = new Knight().setOwner(Piece.WHITE);
-    this.board[7][7] = new Rook().setOwner(Piece.WHITE);
+    this.board[7][0] = new Rook().setOwner(AI.WHITE);
+    this.board[7][1] = new Knight().setOwner(AI.WHITE);
+    this.board[7][2] = new Bishop().setOwner(AI.WHITE);
+    this.board[7][3] = new Queen().setOwner(AI.WHITE);
+    this.board[7][4] = new King().setOwner(AI.WHITE);
+    this.board[7][5] = new Bishop().setOwner(AI.WHITE);
+    this.board[7][6] = new Knight().setOwner(AI.WHITE);
+    this.board[7][7] = new Rook().setOwner(AI.WHITE);
 
     for (int i = 0; i < 8; i++) {
-      this.board[6][i] = new Pawn().setOwner(Piece.WHITE);
+      this.board[6][i] = new Pawn().setOwner(AI.WHITE);
     }
   }
 
