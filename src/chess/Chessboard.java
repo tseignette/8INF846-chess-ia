@@ -26,6 +26,7 @@ public class Chessboard {
   // ===============================================================================================
   public Chessboard() {
     this.board = new Piece[8][8];
+    this.cemetery = new ArrayList<Piece>();
     this.whitePieces = new Piece[16];
     this.blackPieces = new Piece[16];
 
@@ -92,6 +93,18 @@ public class Chessboard {
   public Piece[] getMyPieces(int playerColor) {
     if (playerColor == AI.WHITE) return this.whitePieces;
     return this.blackPieces;
+  }
+
+  public Piece getPiece(int row, int column) {
+    if(
+      row < 0 ||
+      row > 7 ||
+      column < 0 ||
+      column > 7
+    )
+      return null;
+
+    return this.board[row][column];
   }
 
 }

@@ -1,9 +1,14 @@
 package chess.piece;
 
+import java.util.ArrayList;
+
+import chess.Chessboard;
+import chess.Move;
+
 public class King extends Piece {
 
-  public King() {
-    
+  protected ArrayList<Move> computePossibleMoves(Chessboard board) {
+    return new ArrayList<Move>();
   }
 
 }
