@@ -51,7 +51,6 @@ public class AI {
     int random = new Random().nextInt(possibleMoves.size());
     Move randomMove = possibleMoves.get(random);
 
-    this.chessboard.makeMove(randomMove);
     return randomMove;
   }
 
