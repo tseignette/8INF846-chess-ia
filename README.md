@@ -5,6 +5,7 @@ AI class at UQAC - Implementation of a chess AI
 * Miscellaneous:
   * 1s time limit
 * Special moves:
+  * If king is in check, legal moves only are those who put it in a safe position 
   * Castling
   * En passant
   * Promotion
@@ -12,8 +13,6 @@ AI class at UQAC - Implementation of a chess AI
   * Bishop
   * King
   * Knight
-  * Pawn
-  * Queen
   * Rook
 * Best move choice:
   * Minimax

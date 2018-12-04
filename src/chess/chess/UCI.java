@@ -53,14 +53,24 @@ public class UCI {
 
     if (input.contains("moves")) {
       input = input.substring(input.indexOf("moves") + 6);
-      Move move = Move.UCIToMove(input);
+      String lastInput = input;
+      while (input.length() > 0) {
+        lastInput = input;
+        input = input.substring(input.indexOf(' ')+1);
+      }
+      Move move = Move.UCIToMove(lastInput);
       this.chessboard.makeMove(move);
     }
   }
 
   private void go() {
     Move bestMove = ai.chooseBestMove();
-    System.out.println("bestmove " + Move.moveToUCI(bestMove));
+    String UCIMove = "0000";
+
+    if (bestMove !=  null)
+      UCIMove = Move.moveToUCI(bestMove);
+
+    System.out.println("bestmove " + UCIMove);
   }
 
   private void quit() {
