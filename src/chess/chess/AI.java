@@ -36,6 +36,7 @@ public class AI {
   }
 
   // Minimax with alpha-beta pruning
+  // Returns a Move if one has been found, null otherwise
   public Move chooseBestMove() {
     Piece[] myPieces = this.chessboard.getMyPieces(this.color);
     MoveArrayList possibleMoves = new MoveArrayList();
@@ -43,6 +44,9 @@ public class AI {
     for (int i = 0; i < myPieces.length; i++) {
       myPieces[i].getPossibleMoves(this.chessboard, possibleMoves);
     }
+
+    if (possibleMoves.size() == 0)
+      return null;
 
     int random = new Random().nextInt(possibleMoves.size());
     Move randomMove = possibleMoves.get(random);

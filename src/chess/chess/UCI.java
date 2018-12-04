@@ -65,7 +65,12 @@ public class UCI {
 
   private void go() {
     Move bestMove = ai.chooseBestMove();
-    System.out.println("bestmove " + Move.moveToUCI(bestMove));
+    String UCIMove = "0000";
+
+    if (bestMove !=  null)
+      UCIMove = Move.moveToUCI(bestMove);
+
+    System.out.println("bestmove " + UCIMove);
   }
 
   private void quit() {
