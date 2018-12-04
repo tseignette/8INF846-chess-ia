@@ -13,7 +13,6 @@ AI class at UQAC - Implementation of a chess AI
   * Bishop
   * King
   * Knight
-  * Queen
   * Rook
 * Best move choice:
   * Minimax
