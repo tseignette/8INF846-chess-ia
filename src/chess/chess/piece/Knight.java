@@ -1,6 +1,5 @@
 package chess.piece;
 
-import chess.AI;
 import chess.Chessboard;
 import chess.Move;
 import chess.MoveArrayList;
@@ -8,7 +7,6 @@ import chess.MoveArrayList;
 public class Knight extends Piece {
 
   int options[][] = {{1,2},{2,1},{2,-1},{-1,2},{1,-2},{-1,-2},{-2,1},{-2,-1}};
-
 
   protected void computePossibleMoves(Chessboard board, MoveArrayList possibleMoves) {
 	int row = this.getRow();
