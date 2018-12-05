@@ -19,6 +19,7 @@ public class UCI {
   // ===============================================================================================
   private Chessboard chessboard;
   private AI ai;
+  private int nbOfMoves = 0;
 
 
   // ===============================================================================================
@@ -53,13 +54,17 @@ public class UCI {
 
     if (input.contains("moves")) {
       input = input.substring(input.indexOf("moves") + 6);
-      String lastInput = input;
+      int count = 0;
       while (input.length() > 0) {
-        lastInput = input;
+        count++;
+        if (count > this.nbOfMoves) {
+          Move move = Move.UCIToMove(input);
+          this.nbOfMoves++;
+          this.chessboard.makeMove(move);
+        }
         input = input.substring(input.indexOf(' ')+1);
       }
-      Move move = Move.UCIToMove(lastInput);
-      this.chessboard.makeMove(move);
+
     }
   }
 

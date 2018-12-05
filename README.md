@@ -11,8 +11,7 @@ AI class at UQAC - Implementation of a chess AI
   * Promotion
 * Move generation for:
   * Bishop
-  * King
-  * Knight
+  * Knight -> Arnaud
   * Rook
 * Best move choice:
   * Minimax
