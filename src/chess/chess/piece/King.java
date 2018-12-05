@@ -1,8 +1,12 @@
 package chess.piece;
 
+import chess.Chessboard;
+import chess.Move;
+import chess.MoveArrayList;
+
 public class King extends Piece {
 
-  public King() {
+  protected void computePossibleMoves(Chessboard board, MoveArrayList possibleMoves) {
     
   }
 
