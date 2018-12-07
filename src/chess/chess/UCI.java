@@ -60,7 +60,15 @@ public class UCI {
         if (count > this.nbOfMoves) {
           Move move = Move.UCIToMove(input);
           this.nbOfMoves++;
-          this.chessboard.makeMove(move);
+
+          try {
+            this.chessboard.makeMove(move);
+          }
+          catch (Exception e) {
+            System.out.println("info string Error while applying move "+input);
+            this.chessboard.display();
+            System.out.println(e);
+          }
         }
         input = input.substring(input.indexOf(' ')+1);
       }
@@ -69,8 +77,19 @@ public class UCI {
   }
 
   private void go() {
-    Move bestMove = ai.chooseBestMove();
+    Move bestMove = null;
     String UCIMove = "0000";
+
+    try {
+      bestMove = ai.chooseBestMove();
+    }
+    // If an exception is thrown, print the chessboard state and choose a null move
+    catch (Exception e) {
+      bestMove = null;
+      System.out.println("info string Error while choosing best move");
+      this.chessboard.display();
+      System.out.println(e);
+    }
 
     if (bestMove !=  null)
       UCIMove = Move.moveToUCI(bestMove);

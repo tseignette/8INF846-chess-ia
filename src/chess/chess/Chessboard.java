@@ -107,4 +107,44 @@ public class Chessboard {
     return this.board[row][column];
   }
 
+  public void display() {
+    for (int i = 0; i < 8; i++) {
+      String line = "info string";
+
+      for (int j = 0; j < 8; j++) {
+        Piece p = this.board[i][j];
+        String owner = "W";
+        String piece;
+
+        if (p == null) {
+          owner = "-";
+          piece = "-";
+        }
+        else {
+          if (p.getOwner() == AI.BLACK)
+            owner = "B";
+
+          if (p instanceof Bishop)
+            piece = "B";
+          else if (p instanceof King)
+            piece = "K";
+          else if (p instanceof Knight)
+            piece = "N";
+          else if (p instanceof Pawn)
+            piece = "P";
+          else if (p instanceof Queen)
+            piece = "Q";
+          else if (p instanceof Rook)
+            piece = "R";
+          else
+            piece = "?";
+        }
+
+        line += " " + owner + piece;
+      }
+
+      System.out.println(line);
+    }
+  }
+
 }
