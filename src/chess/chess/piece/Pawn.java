@@ -7,6 +7,18 @@ import chess.MoveArrayList;
 
 public class Pawn extends Piece {
 
+  private void addMove(Move m, MoveArrayList possibleMoves) {
+    int rowTo = m.getRowTo();
+
+    // Promotion if in its eighth rank
+    // We always promote to queen because in 96.9% of cases, it is the best piece
+    // to promote to (according to Wikipedia)
+    if (rowTo == 0 || rowTo == 7)
+      m.setPromotion('q');
+
+    possibleMoves.add(m);
+  }
+
   protected void computePossibleMoves(Chessboard board, MoveArrayList possibleMoves) {
     int row = this.getRow();
     int column = this.getColumn();
@@ -22,14 +34,14 @@ public class Pawn extends Piece {
     // Movement moves
     // If nothing in front of him
     if (board.getPiece(frontRow, column) == null) {
-      possibleMoves.add(new Move(row, column, frontRow, column));
+      this.addMove(new Move(row, column, frontRow, column), possibleMoves);
 
       // If first move and nothing two tiles in front of him
       if (
         (row == 1 || row == 6) &&
         (board.getPiece(frontFrontRow, column) == null)
       ) {
-        possibleMoves.add(new Move(row, column, frontFrontRow, column));
+        this.addMove(new Move(row, column, frontFrontRow, column), possibleMoves);
       }
     }
 
@@ -41,14 +53,14 @@ public class Pawn extends Piece {
       leftFrontPiece != null &&
       leftFrontPiece.getOwner() != this.getOwner()
     )
-      possibleMoves.add(new Move(row, column, frontRow, column - 1));
+      this.addMove(new Move(row, column, frontRow, column - 1), possibleMoves);
 
     // If there is an opponent piece on the right
     if (
       rightFrontPiece != null &&
       rightFrontPiece.getOwner() != this.getOwner()
     )
-      possibleMoves.add(new Move(row, column, frontRow, column + 1));
+      this.addMove(new Move(row, column, frontRow, column + 1), possibleMoves);
   }
 
 }

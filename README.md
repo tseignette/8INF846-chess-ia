@@ -7,7 +7,6 @@ AI class at UQAC - Implementation of a chess AI
 * Special moves:
   * Castling
   * En passant
-  * Promotion
 * Best move choice:
   * Minimax
   * Alpha-beta pruning

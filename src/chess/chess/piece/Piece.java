@@ -20,6 +20,28 @@ public abstract class Piece {
 
 
   // ===============================================================================================
+  // PUBLIC STATIC METHODS
+  // ===============================================================================================
+  public static Piece getPromotion(Piece p, Character promotion) {
+    Piece newPiece = p;
+
+    if (promotion == 'q')
+      newPiece = new Queen();
+    else if (promotion == 'n')
+      newPiece = new Knight();
+    else if (promotion == 'r')
+      newPiece = new Rook();
+    else if (promotion == 'b')
+      newPiece = new Bishop();
+
+    newPiece.setOwner(p.getOwner())
+      .setPosition(p.getRow(), p.getColumn());
+
+    return newPiece;
+  }
+
+
+  // ===============================================================================================
   // PUBLIC METHODS
   // ===============================================================================================
   public Piece setOwner(int owner) {

@@ -67,6 +67,24 @@ public class Chessboard {
 
 
   // ===============================================================================================
+  // PRIVATE METHODS
+  // ===============================================================================================
+  private void replacePiece(Piece oldPiece, Piece newPiece) {
+    this.board[oldPiece.getRow()][oldPiece.getColumn()] = newPiece;
+
+    Piece[] playerPieces = this.getMyPieces(oldPiece.getOwner());
+
+    for (int i = 0; i < 16; i++) {
+      if (playerPieces[i] == oldPiece) {
+        playerPieces[i] = newPiece;
+
+        return;
+      }
+    }
+  }
+
+
+  // ===============================================================================================
   // PUBLIC METHODS
   // ===============================================================================================
   public void makeMove(Move move) {
@@ -77,6 +95,13 @@ public class Chessboard {
 
     Piece pieceFrom = this.board[rowFrom][columnFrom];
     Piece pieceTo = this.board[rowTo][columnTo];
+
+    // If promotion
+    if (move.getPromotion() != null) {
+      Piece newPiece = Piece.getPromotion(pieceFrom, move.getPromotion());
+      this.replacePiece(pieceFrom, newPiece);
+      pieceFrom = newPiece;
+    }
 
     // If there is a piece on the destination, put it in the cemetery
     if(pieceTo != null) {
