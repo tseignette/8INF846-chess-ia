@@ -16,6 +16,7 @@ public class Chessboard {
   // ATTRIBUTES
   // ===============================================================================================
   private Piece[][] board; // board[i][j] where i is the row and j the column
+  private ArrayList<Move> movesHistory; // contains every move done from the beginning
   private ArrayList<Piece> cemetery;
   private Piece[] whitePieces; // allows faster access to white pieces
   private Piece[] blackPieces; // allows faster access to black pieces
@@ -26,6 +27,7 @@ public class Chessboard {
   // ===============================================================================================
   public Chessboard() {
     this.board = new Piece[8][8];
+    this.movesHistory = new ArrayList<Move>();
     this.cemetery = new ArrayList<Piece>();
     this.whitePieces = new Piece[16];
     this.blackPieces = new Piece[16];
@@ -113,6 +115,9 @@ public class Chessboard {
     pieceFrom.setPosition(rowTo, columnTo);
     this.board[rowTo][columnTo] = pieceFrom;
     this.board[rowFrom][columnFrom] = null;
+
+    // Add move to move history
+    this.movesHistory.add(move);
   }
 
   public Piece[] getMyPieces(int playerColor) {
@@ -130,6 +135,26 @@ public class Chessboard {
       return null;
 
     return this.board[row][column];
+  }
+
+  public boolean isGameOver() {
+    for (int i = 0; i < this.cemetery.size(); i++) {
+      Piece piece = this.cemetery.get(i);
+
+      if (piece instanceof King) return true;
+    }
+
+    return false;
+  }
+
+  public Chessboard clone() {
+    Chessboard clone = new Chessboard();
+
+    this.movesHistory.forEach(move -> {
+      clone.makeMove(move);
+    });
+
+    return clone;
   }
 
   public void display() {
