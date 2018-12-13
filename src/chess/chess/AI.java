@@ -44,9 +44,9 @@ public class AI {
 
   // Minimax with alpha-beta pruning
   // Returns a Move if one has been found, null otherwise
-  public Move chooseBestMove() {
+  public Move chooseBestMove(long startTime) {
 
-    Move bestMove = this.minimax.getBestMove(this.chessboard, this.color);
+    Move bestMove = this.minimax.getBestMove(this.chessboard, this.color, startTime);
 
     if (this.chessboard.getLittleCastling() == 1) {
         if ((this.color == WHITE) && (bestMove.getRowFrom() == 1) && (bestMove.getColumnFrom() == 4 || bestMove.getColumnFrom() == 7))

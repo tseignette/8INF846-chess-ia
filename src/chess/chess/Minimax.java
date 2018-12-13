@@ -1,6 +1,7 @@
 package chess;
 
 import chess.piece.*;
+import java.util.Date;
 
 public class Minimax {
 
@@ -11,7 +12,7 @@ public class Minimax {
   public final static int WHITE = 0;
 
   private UCINotifier notifier = new UCINotifier();
-  private int depth = 3;
+  private int depth = 1;
 
   // ===============================================================================================
   // PRIVATE METHODS
@@ -79,7 +80,7 @@ public class Minimax {
     return blackScore - whiteScore;
   }
 
-  private Double minValue(Chessboard chessboard, int color, int depth) {
+  private Double minValue(Chessboard chessboard, int color, int depth, long startTime) {
     notifier.depthReached(depth).nodeLooked();
 
     if (depth == this.depth || chessboard.isGameOver())
@@ -94,16 +95,21 @@ public class Minimax {
       Chessboard clone = chessboard.clone();
       clone.makeMove(move);
 
-      Double score = this.maxValue(clone, color, depth + 1);
+      Double score = this.maxValue(clone, color, depth + 1, startTime);
 
       if (score < bestScore)
         bestScore = score;
+        
+      if(System.currentTimeMillis() - startTime >= 950) {
+        break;
+      }  
+        
     }
 
     return bestScore;
   }
 
-  private Double maxValue(Chessboard chessboard, int color, int depth) {
+  private Double maxValue(Chessboard chessboard, int color, int depth, long startTime) {
     notifier.depthReached(depth).nodeLooked();
 
     if (depth == this.depth || chessboard.isGameOver())
@@ -118,10 +124,14 @@ public class Minimax {
       Chessboard clone = chessboard.clone();
       clone.makeMove(move);
 
-      Double score = this.maxValue(clone, color, depth + 1);
+      Double score = this.maxValue(clone, color, depth + 1, startTime);
 
       if (score > bestScore)
         bestScore = score;
+        
+      if(System.currentTimeMillis() - startTime >= 950) {
+        break;
+      }
     }
 
     return bestScore;
@@ -131,27 +141,38 @@ public class Minimax {
   // ===============================================================================================
   // PUBLIC METHODS
   // ===============================================================================================
-  public Move getBestMove(Chessboard chessboard, int color) {
+  public Move getBestMove(Chessboard chessboard, int color, long startTime) {
     this.notifier.clear();
+
+    //long startTime = System.currentTimeMillis();
+    
+    this.depth = 1;
 
     MoveArrayList possibleMoves = this.getPossibleMoves(chessboard, color);
     Move bestMove = possibleMoves.get(0);
     Double bestScore = Double.NEGATIVE_INFINITY;
 
-    for (int i = 0; i < possibleMoves.size(); i++) {
-      Move move = possibleMoves.get(i);
+    while(System.currentTimeMillis() - startTime < 950){
+        for (int i = 0; i < possibleMoves.size(); i++) {
+            Move move = possibleMoves.get(i);
 
-      Chessboard clone = chessboard.clone();
-      clone.makeMove(move);
+            Chessboard clone = chessboard.clone();
+            clone.makeMove(move);
 
-      Double score = this.minValue(clone, color, 0);
+            Double score = this.minValue(clone, color, 0, startTime);
 
-      if (score > bestScore) {
-        bestMove = move;
-        bestScore = score;
-      }
+            if (score > bestScore) {
+                bestMove = move;
+                bestScore = score;
+            }
+
+            if(System.currentTimeMillis() - startTime >= 950) {
+                break;
+            }
+        }
+        this.depth = this.depth +1;
     }
-
+    System.out.println("info string time elapsed " + (System.currentTimeMillis() - startTime));
     this.notifier.sendNotification();
     return bestMove;
   }

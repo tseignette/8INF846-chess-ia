@@ -77,9 +77,11 @@ public class UCI {
   private void go() {
     Move bestMove = null;
     String UCIMove = "0000";
+    
+    long startTime = System.currentTimeMillis();
 
     try {
-      bestMove = ai.chooseBestMove();
+      bestMove = ai.chooseBestMove(startTime);
     }
     // If an exception is thrown, print the chessboard state and choose a null move
     catch (Exception e) {
