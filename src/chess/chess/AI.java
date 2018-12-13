@@ -14,7 +14,7 @@ public class AI {
   // ===============================================================================================
   private Chessboard chessboard;
   private Minimax minimax;
-  private int color = WHITE;
+  private int color = BLACK;
 
 
 

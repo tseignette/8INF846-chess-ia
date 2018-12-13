@@ -45,11 +45,6 @@ public class UCI {
   private void newPosition(String input) {
     input = input.substring(9).concat(" ");
 
-    if (input.contains("startpos ")) {
-      input = input.substring(9);
-      ai.setColor(AI.BLACK);
-    }
-
     if (input.contains("moves")) {
       input = input.substring(input.indexOf("moves") + 6);
       int count = 0;
@@ -70,7 +65,12 @@ public class UCI {
         }
         input = input.substring(input.indexOf(' ')+1);
       }
+    }
 
+
+    if (this.nbOfMoves == 0) {
+      input = input.substring(9);
+      ai.setColor(AI.WHITE);
     }
   }
 
