@@ -2,11 +2,8 @@
 AI class at UQAC - Implementation of a chess AI
 
 ## Todo
-* Miscellaneous:
-  * 1s time limit
 * Special moves:
-  * Castling
-  * En passant
+  * Castling (à tester plus en détail)
+  * En passant (à implémanter)
 * Best move choice:
-  * Minimax
   * Alpha-beta pruning
