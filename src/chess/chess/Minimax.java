@@ -21,7 +21,7 @@ public class Minimax {
     Piece[] myPieces = chessboard.getMyPieces(color);
     MoveArrayList possibleMoves = new MoveArrayList();
     
-    if (chessboard.getLittleCastling() == 1) {
+    /*if (chessboard.getLittleCastling() == 1) {
         Move little_castling;
         if ((color == WHITE) && (chessboard.getPiece(7,5) == null ) && (chessboard.getPiece(7,6) == null ) ) {
             little_castling = new Move(7,4,7,6);
@@ -43,7 +43,7 @@ public class Minimax {
             big_castling = new Move(0,4,0,2);
             possibleMoves.add(big_castling);
         }
-    }
+    }*/
     
     
     for (int i = 0; i < myPieces.length; i++) {
@@ -80,7 +80,7 @@ public class Minimax {
     return blackScore - whiteScore;
   }
 
-  private Double minValue(Chessboard chessboard, int color, int depth, long startTime) {
+  private Double minValue(Chessboard chessboard, int color, int depth, long startTime, double alpha, double beta) {
     notifier.depthReached(depth).nodeLooked();
 
     if (depth == this.depth || chessboard.isGameOver())
@@ -95,11 +95,13 @@ public class Minimax {
       Chessboard clone = chessboard.clone();
       clone.makeMove(move);
 
-      Double score = this.maxValue(clone, color, depth + 1, startTime);
-
-      if (score < bestScore)
-        bestScore = score;
+      Double score = this.maxValue(clone, color, depth + 1, startTime, alpha, beta);
+      bestScore = Math.min(bestScore,score);
+      
+      if (bestScore < alpha)
+        return bestScore;
         
+      beta = Math.min(beta,bestScore);  
       if(System.currentTimeMillis() - startTime >= 950) {
         break;
       }  
@@ -109,7 +111,7 @@ public class Minimax {
     return bestScore;
   }
 
-  private Double maxValue(Chessboard chessboard, int color, int depth, long startTime) {
+  private Double maxValue(Chessboard chessboard, int color, int depth, long startTime, double alpha, double beta) {
     notifier.depthReached(depth).nodeLooked();
 
     if (depth == this.depth || chessboard.isGameOver())
@@ -117,18 +119,20 @@ public class Minimax {
 
     MoveArrayList possibleMoves = this.getPossibleMoves(chessboard, color);
     Double bestScore = Double.NEGATIVE_INFINITY;
-
+    
     for (int i = 0; i < possibleMoves.size(); i++) {
       Move move = possibleMoves.get(i);
 
       Chessboard clone = chessboard.clone();
       clone.makeMove(move);
 
-      Double score = this.maxValue(clone, color, depth + 1, startTime);
-
-      if (score > bestScore)
-        bestScore = score;
+      Double score = this.minValue(clone, color, depth + 1, startTime, alpha, beta);
+      bestScore = Math.max(score,bestScore);
+      
+      if (bestScore > beta)
+        return bestScore;
         
+      alpha = Math.max(alpha,bestScore);  
       if(System.currentTimeMillis() - startTime >= 950) {
         break;
       }
@@ -151,6 +155,8 @@ public class Minimax {
     MoveArrayList possibleMoves = this.getPossibleMoves(chessboard, color);
     Move bestMove = possibleMoves.get(0);
     Double bestScore = Double.NEGATIVE_INFINITY;
+    Double alpha = Double.NEGATIVE_INFINITY;
+    Double beta = Double.POSITIVE_INFINITY;
 
     while(System.currentTimeMillis() - startTime < 950){
         for (int i = 0; i < possibleMoves.size(); i++) {
@@ -159,7 +165,7 @@ public class Minimax {
             Chessboard clone = chessboard.clone();
             clone.makeMove(move);
 
-            Double score = this.minValue(clone, color, 0, startTime);
+            Double score = this.minValue(clone, color, 0, startTime, alpha, beta);
 
             if (score > bestScore) {
                 bestMove = move;
