@@ -76,4 +76,6 @@ public abstract class Piece {
     this.computePossibleMoves(board, possibleMoves);
   }
 
+  public abstract Double getValue();
+
 }

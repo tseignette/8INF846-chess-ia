@@ -25,10 +25,13 @@ public class Knight extends Piece {
 		  possibleMoves.add(new Move(row, column, moveRow, moveColumn));
 
 		}
-		
-		
 	}
-  }
+	}
+
+  public Double getValue() {
+		return 30.0;
+	}
+
 }
 
 

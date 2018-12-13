@@ -26,4 +26,8 @@ public class King extends Piece {
     }
   }
 
+  public Double getValue() {
+		return 900.0;
+  }
+
 }

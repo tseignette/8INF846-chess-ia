@@ -137,6 +137,22 @@ public class Chessboard {
     return this.board[row][column];
   }
 
+  public boolean hasLost(int color) {
+    Piece[] pieces = this.getMyPieces(color);
+
+    for (int i = 0; i < 16; i++) {
+      Piece p = pieces[i];
+      if (p instanceof King) {
+        if (p.getRow() == Chessboard.CEMETERY)
+          return true;
+
+        return false;
+      }
+    }
+
+    return false;
+  }
+
   public boolean isGameOver() {
     for (int i = 0; i < this.cemetery.size(); i++) {
       Piece piece = this.cemetery.get(i);

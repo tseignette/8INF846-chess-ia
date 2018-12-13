@@ -65,4 +65,8 @@ public class Bishop extends Piece {
 		return false;
 	}
 
+  public Double getValue() {
+		return 30.0;
+	}
+
 }

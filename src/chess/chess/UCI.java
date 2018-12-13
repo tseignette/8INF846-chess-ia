@@ -1,9 +1,6 @@
 package chess;
 
-import java.sql.Time;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.concurrent.*;
 
 public class UCI {
 
@@ -42,6 +39,7 @@ public class UCI {
   private void newGame() {
     this.chessboard = new Chessboard();
     this.ai = new AI(this.chessboard);
+    this.nbOfMoves = 0;
   }
 
   private void newPosition(String input) {

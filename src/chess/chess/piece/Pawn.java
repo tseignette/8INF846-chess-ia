@@ -63,4 +63,8 @@ public class Pawn extends Piece {
       this.addMove(new Move(row, column, frontRow, column + 1), possibleMoves);
   }
 
+  public Double getValue() {
+		return 10.0;
+	}
+
 }

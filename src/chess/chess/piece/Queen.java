@@ -14,6 +14,10 @@ public class Queen extends Piece {
     this.bishop.computePossibleMoves(board, possibleMoves);
   }
 
+  public Double getValue() {
+		return 90.0;
+	}
+
   public Piece setOwner(int owner) {
     super.setOwner(owner);
     this.rook.setOwner(owner);
