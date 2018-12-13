@@ -3,7 +3,7 @@ AI class at UQAC - Implementation of a chess AI
 
 ## Todo
 * Special moves:
-  * Castling (à tester plus en détail)
+  * Castling (non fonctionnel ! Commenté)
   * En passant (à implémanter)
 * Best move choice:
-  * Alpha-beta pruning
+  * Better heuristic
