@@ -67,7 +67,6 @@ public class UCI {
       }
     }
 
-
     if (this.nbOfMoves == 0) {
       input = input.substring(9);
       ai.setColor(AI.WHITE);
