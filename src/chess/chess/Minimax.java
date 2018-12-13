@@ -4,6 +4,12 @@ import chess.piece.*;
 
 public class Minimax {
 
+  // ===============================================================================================
+  // CONSTANTS
+  // ===============================================================================================
+  public final static int BLACK = 1;
+  public final static int WHITE = 0;
+
   private UCINotifier notifier = new UCINotifier();
   private int depth = 3;
 
@@ -13,6 +19,31 @@ public class Minimax {
   private MoveArrayList getPossibleMoves(Chessboard chessboard, int color) {
     Piece[] myPieces = chessboard.getMyPieces(color);
     MoveArrayList possibleMoves = new MoveArrayList();
+    
+    if (chessboard.getLittleCastling() == 1) {
+        Move little_castling;
+        if ((color == WHITE) && (chessboard.getPiece(7,5) == null ) && (chessboard.getPiece(7,6) == null ) ) {
+            little_castling = new Move(7,4,7,6);
+            possibleMoves.add(little_castling);
+        }
+        else if((color == BLACK) && (chessboard.getPiece(0,5) == null ) && (chessboard.getPiece(0,6) == null )) {
+            little_castling = new Move(0,4,0,6);
+            possibleMoves.add(little_castling);
+        }
+    }
+    
+    if (chessboard.getBigCastling() == 1) {
+        Move big_castling;
+        if ((color == WHITE) && (chessboard.getPiece(7,3) == null ) && (chessboard.getPiece(7,2) == null ) && (chessboard.getPiece(7,1) == null )) {
+            big_castling = new Move(7,4,7,2);
+            possibleMoves.add(big_castling);
+        }
+        else if((color == BLACK) && (chessboard.getPiece(0,3) == null ) && (chessboard.getPiece(0,2) == null )&& (chessboard.getPiece(0,1) == null )) {
+            big_castling = new Move(0,4,0,2);
+            possibleMoves.add(big_castling);
+        }
+    }
+    
     
     for (int i = 0; i < myPieces.length; i++) {
       myPieces[i].getPossibleMoves(chessboard, possibleMoves);

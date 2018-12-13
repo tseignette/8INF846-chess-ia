@@ -20,6 +20,8 @@ public class Chessboard {
   private ArrayList<Piece> cemetery;
   private Piece[] whitePieces; // allows faster access to white pieces
   private Piece[] blackPieces; // allows faster access to black pieces
+  private int little_castling;
+  private int big_castling;
 
 
   // ===============================================================================================
@@ -31,6 +33,8 @@ public class Chessboard {
     this.cemetery = new ArrayList<Piece>();
     this.whitePieces = new Piece[16];
     this.blackPieces = new Piece[16];
+    this.little_castling = 1;
+    this.big_castling = 1;
 
     // Black pieces
     this.board[0][0] = new Rook().setPosition(0, 0).setOwner(AI.BLACK);
@@ -212,5 +216,22 @@ public class Chessboard {
       System.out.println(line);
     }
   }
+  
+  public int getLittleCastling() {
+    return this.little_castling;
+  }
 
+  public int getBigCastling() {
+    return this.big_castling;
+  }
+  
+  public void setLittleCastling(int value) {
+    this.little_castling = value;
+  }
+  
+  public void setBigCastling(int value) {
+    this.big_castling = value;
+  }
+  
+  
 }
