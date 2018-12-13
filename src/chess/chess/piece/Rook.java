@@ -83,4 +83,8 @@ public class Rook extends Piece {
     }
   }
 
+  public Double getValue() {
+		return 50.0;
+	}
+
 }

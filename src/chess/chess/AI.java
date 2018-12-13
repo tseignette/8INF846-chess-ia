@@ -1,9 +1,5 @@
 package chess;
 
-import java.util.Random;
-
-import chess.piece.Piece;
-
 public class AI {
 
   // ===============================================================================================
@@ -17,6 +13,7 @@ public class AI {
   // ATTRIBUTES
   // ===============================================================================================
   private Chessboard chessboard;
+  private Minimax minimax;
   private int color = WHITE;
   private int little_castling = 1;
   private int big_castling = 1;
@@ -27,6 +24,15 @@ public class AI {
   // ===============================================================================================
   public AI(Chessboard chessboard) {
     this.chessboard = chessboard;
+    this.minimax = new Minimax();
+  }
+
+
+  // ===============================================================================================
+  // PUBLIC STATIC METHODS
+  // ===============================================================================================
+  public static int getOpponentColor(int color) {
+    return (color == AI.WHITE) ? AI.BLACK : AI.WHITE;
   }
 
 
@@ -40,6 +46,9 @@ public class AI {
   // Minimax with alpha-beta pruning
   // Returns a Move if one has been found, null otherwise
   public Move chooseBestMove() {
+
+    //return(this.minimax.getBestMove(this.chessboard, this.color));
+
     Piece[] myPieces = this.chessboard.getMyPieces(this.color);
     MoveArrayList possibleMoves = new MoveArrayList();
     
