@@ -1,7 +1,6 @@
 package chess;
 
 import chess.piece.*;
-import java.util.Date;
 
 public class Minimax {
 
@@ -20,32 +19,7 @@ public class Minimax {
   private MoveArrayList getPossibleMoves(Chessboard chessboard, int color) {
     Piece[] myPieces = chessboard.getMyPieces(color);
     MoveArrayList possibleMoves = new MoveArrayList();
-    
-    // if (chessboard.getLittleCastling() == 1) {
-    //     Move little_castling;
-    //     if ((color == WHITE) && (chessboard.getPiece(7,5) == null ) && (chessboard.getPiece(7,6) == null ) ) {
-    //         little_castling = new Move(7,4,7,6);
-    //         possibleMoves.add(little_castling);
-    //     }
-    //     else if((color == BLACK) && (chessboard.getPiece(0,5) == null ) && (chessboard.getPiece(0,6) == null )) {
-    //         little_castling = new Move(0,4,0,6);
-    //         possibleMoves.add(little_castling);
-    //     }
-    // }
-    
-    // if (chessboard.getBigCastling() == 1) {
-    //     Move big_castling;
-    //     if ((color == WHITE) && (chessboard.getPiece(7,3) == null ) && (chessboard.getPiece(7,2) == null ) && (chessboard.getPiece(7,1) == null )) {
-    //         big_castling = new Move(7,4,7,2);
-    //         possibleMoves.add(big_castling);
-    //     }
-    //     else if((color == BLACK) && (chessboard.getPiece(0,3) == null ) && (chessboard.getPiece(0,2) == null )&& (chessboard.getPiece(0,1) == null )) {
-    //         big_castling = new Move(0,4,0,2);
-    //         possibleMoves.add(big_castling);
-    //     }
-    // }
-    
-    
+
     for (int i = 0; i < myPieces.length; i++) {
       myPieces[i].getPossibleMoves(chessboard, possibleMoves);
     }
@@ -96,16 +70,15 @@ public class Minimax {
       clone.makeMove(move);
 
       Double score = this.maxValue(clone, color, depth + 1, startTime, alpha, beta);
-      bestScore = Math.min(bestScore,score);
+      bestScore = Math.min(bestScore, score);
       
       if (bestScore < alpha)
         return bestScore;
         
-      beta = Math.min(beta,bestScore);  
-      if(System.currentTimeMillis() - startTime >= 950) {
+      beta = Math.min(beta, bestScore);  
+      if(System.currentTimeMillis() - startTime >= 990) {
         break;
       }  
-        
     }
 
     return bestScore;
@@ -127,13 +100,13 @@ public class Minimax {
       clone.makeMove(move);
 
       Double score = this.minValue(clone, color, depth + 1, startTime, alpha, beta);
-      bestScore = Math.max(score,bestScore);
+      bestScore = Math.max(score, bestScore);
       
       if (bestScore > beta)
         return bestScore;
         
-      alpha = Math.max(alpha,bestScore);  
-      if(System.currentTimeMillis() - startTime >= 950) {
+      alpha = Math.max(alpha, bestScore);  
+      if(System.currentTimeMillis() - startTime >= 990) {
         break;
       }
     }
@@ -147,8 +120,6 @@ public class Minimax {
   // ===============================================================================================
   public Move getBestMove(Chessboard chessboard, int color, long startTime) {
     this.notifier.clear();
-
-    //long startTime = System.currentTimeMillis();
     
     this.depth = 1;
 
@@ -158,27 +129,28 @@ public class Minimax {
     Double alpha = Double.NEGATIVE_INFINITY;
     Double beta = Double.POSITIVE_INFINITY;
 
-    while(System.currentTimeMillis() - startTime < 950){
-        for (int i = 0; i < possibleMoves.size(); i++) {
-            Move move = possibleMoves.get(i);
+    while(System.currentTimeMillis() - startTime < 990) {
+      for (int i = 0; i < possibleMoves.size(); i++) {
+        Move move = possibleMoves.get(i);
+        this.notifier.actualMove(move, i + 1);
 
-            Chessboard clone = chessboard.clone();
-            clone.makeMove(move);
+        Chessboard clone = chessboard.clone();
+        clone.makeMove(move);
 
-            Double score = this.minValue(clone, color, 0, startTime, alpha, beta);
+        Double score = this.minValue(clone, color, 0, startTime, alpha, beta);
 
-            if (score > bestScore) {
-                bestMove = move;
-                bestScore = score;
-            }
-
-            if(System.currentTimeMillis() - startTime >= 950) {
-                break;
-            }
+        if (score > bestScore) {
+          bestMove = move;
+          bestScore = score;
         }
-        this.depth = this.depth +1;
+
+        if(System.currentTimeMillis() - startTime >= 990)
+          break;
+      }
+
+      this.depth++;
     }
-    System.out.println("info string time elapsed " + (System.currentTimeMillis() - startTime));
+    System.out.println("info string Time elapsed: " + (System.currentTimeMillis() - startTime) + "ms");
     this.notifier.sendNotification();
     return bestMove;
   }

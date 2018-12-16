@@ -4,6 +4,17 @@ public class UCINotifier {
 
   int nbNodeLooked = 0;
   int depth = 0;
+  Move move;
+  int currentMoveNumber = 0;
+
+  public UCINotifier actualMove(Move move, int currMove) {
+    this.move = move;
+    this.currentMoveNumber = currMove;
+
+    System.out.println("info currmovenumber " + currentMoveNumber + " currmove " + Move.moveToUCI(move));
+
+    return this;
+  }
 
   public UCINotifier nodeLooked() {
     nbNodeLooked++;
@@ -26,7 +37,7 @@ public class UCINotifier {
   }
 
   public void sendNotification() {
-    System.out.println("info string nodes " + nbNodeLooked + " depth " + depth);
+    System.out.println("info nodes " + nbNodeLooked + " depth " + depth);
   }
 
 }
